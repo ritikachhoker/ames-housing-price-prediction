@@ -126,9 +126,9 @@ The exact endpoint path and input schema are defined in `main.py`.
 
 The model was evaluated using regression metrics, including the R² score.
 
-- **Training R²:** 0.8090880378719172
-- **Testing R²:**  0.8370141769582473
-- **MAE:** 20563.17683849547
+- **Training R²:** 0.80
+- **Testing R²:**  0.83
+- **MAE:** 20563.17
 
 Use the actual values from your final model evaluation rather than estimated results.
 
