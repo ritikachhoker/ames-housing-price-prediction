@@ -1,101 +1,153 @@
-# Ames Housing Price Prediction
+# Ames Housing Price Prediction 🏡
 
-## Project Overview
-This project explores residential house price prediction using the Ames Housing dataset. It uses exploratory data analysis, feature selection, data preprocessing, feature transformation, and Linear Regression to predict house sale prices.
+A Machine Learning project that predicts house sale prices using **SGDRegressor** with a preprocessing pipeline. The project includes a **FastAPI backend**, a **Streamlit frontend**, and **Docker Compose** for running both services together.
 
-The project is part of my hands-on learning journey in Machine Learning, with a focus on understanding the complete regression workflow.
+## 🚀 Features
 
-## Dataset
-- **Dataset:** Ames Housing
-- **Input file:** `train.csv`
-- **Dataset dimensions:** 1,460 rows and 81 columns
-- **Target variable:** `SalePrice`
+- House price prediction using a trained Machine Learning model.
+- Data preprocessing using Scikit-learn pipelines.
+- Missing value imputation and feature scaling.
+- Categorical feature encoding using OneHotEncoder.
+- FastAPI REST API for making predictions.
+- Interactive Streamlit user interface.
+- Dockerized API and frontend.
+- Docker Compose to run both services together.
 
-The dataset contains information about residential properties, including lot size, overall quality, living area, garage characteristics, and neighborhood.
+## 🛠️ Tech Stack
 
-## Technologies Used
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
-- Jupyter Notebook
+- **Language:** Python
+- **Machine Learning:** Scikit-learn, Pandas, NumPy
+- **Backend:** FastAPI, Uvicorn
+- **Frontend:** Streamlit
+- **Model:** SGDRegressor
+- **Containerization:** Docker, Docker Compose
+- **API Testing:** FastAPI Swagger UI
 
-## Project Workflow
+## 📂 Project Structure
 
-### 1. Exploratory Data Analysis
-- Inspected dataset structure and statistical summaries.
-- Examined missing values and numerical feature distributions.
-- Explored correlations and relationships between features and sale prices.
-- Created visualizations to better understand the data.
+```text
+home_price_prediction_sgdregressor/
+│
+├── app.py
+├── main.py
+├── Dockerfile
+├── docker-compose.yml
+├── requirement.txt
+│
+├── model/
+│   └── model.pkl
+│
+└── README.md
+```
 
-### 2. Feature Selection
-Selected 13 input features based on initial exploration and their potential relevance to house prices.
+*Note: Adjust the filenames above if your actual project structure is different.*
 
-### 3. Data Preprocessing
-- Split the dataset into training and testing sets.
-- Used median imputation for missing `LotFrontage` values.
-- Applied one-hot encoding to the `Neighborhood` feature.
-- Used `ColumnTransformer` to combine preprocessing steps.
+## ⚙️ Run Locally with Docker Compose
 
-### 4. Feature Engineering
-Experimented with `log1p` transformations on `LotFrontage` and `LotArea` to investigate whether transforming numerical features improves model performance.
+### Prerequisites
 
-### 5. Model Training
-Trained a Linear Regression model using scikit-learn and compared three feature-selection/preprocessing experiments.
+- Docker Desktop installed and running.
+- Git (optional, for cloning the repository).
 
-### 6. Model Evaluation
-Evaluated model performance using:
-- R² score
-- Mean Absolute Error (MAE)
-- Mean Squared Error (MSE)
+### 1. Clone the repository
 
-## Results
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+cd home_price_prediction_sgdregressor
+```
 
-The best-performing experiment among the three reported runs achieved:
+Replace `YOUR_GITHUB_REPOSITORY_URL` with your actual GitHub repository URL.
 
-| Metric | Result |
-|---|---:|
-| Training R² | 0.8556 |
-| Testing R² | 0.7172 |
-| Test MAE | 22,610.57 |
-| Test MSE | 2,001,798,162.10 |
+### 2. Build and start the services
 
-The test R² indicates that the model explains approximately 71.72% of the variation in sale prices for the current test split.
+```bash
+docker compose up --build
+```
 
-The difference between training and testing performance indicates that further improvements in generalization may be possible.
+Docker Compose builds the required images and starts the API and frontend containers.
 
-## Key Learnings
-- Exploring real-world tabular datasets.
-- Identifying and handling missing values.
-- Selecting useful numerical and categorical features.
-- Applying one-hot encoding and logarithmic transformations.
-- Using `SimpleImputer`, `Pipeline`, and `ColumnTransformer`.
-- Training and evaluating a regression model.
-- Comparing experiments using training and testing metrics.
+### 3. Open the application
 
-## Future Improvements
-- Evaluate the model using cross-validation.
-- Investigate the training-testing performance gap.
-- Compare Linear Regression with Ridge and other regression models.
-- Evaluate additional features and transformations.
-- Add further regression metrics and prediction visualizations.
+| Service | URL |
+|---|---|
+| Streamlit Frontend | http://localhost:8501 |
+| FastAPI Swagger Docs | http://localhost:8000/docs |
 
-## How to Run
-1. Clone or download this repository.
-2. Install the required libraries:
+Enter the required house features in the Streamlit interface to get a predicted sale price.
 
-   ```bash
-   pip install pandas numpy matplotlib seaborn scikit-learn jupyter
-   ```
+### 4. Stop the application
 
-3. Ensure `train.csv` is available in the expected working directory.
-4. Open `house_price_prediction.ipynb` in Jupyter Notebook.
-5. Run the notebook cells in order.
+Press `Ctrl + C` in the terminal, then run:
 
-## Project Status
-In progress — a practical Machine Learning project focused on regression, feature engineering, and model evaluation.
+```bash
+docker compose down
+```
 
-## Acknowledgements
-The Ames Housing dataset is widely used for learning and experimenting with regression techniques.
+## 🐳 Docker Hub Images
+
+The project images are available on Docker Hub:
+
+- **API:** [ritichh/ames-housing-api](https://hub.docker.com/r/ritichh/ames-housing-api)
+- **Frontend:** [ritichh/ames-housing-frontend](https://hub.docker.com/r/ritichh/ames-housing-frontend)
+
+To download the images:
+
+```bash
+docker pull ritichh/ames-housing-api:latest
+docker pull ritichh/ames-housing-frontend:latest
+```
+
+To run the complete application, use the project's Docker Compose configuration.
+
+## 🔌 API Usage
+
+Open the Swagger documentation:
+
+http://localhost:8000/docs
+
+Use the available prediction endpoint to submit the required input features and inspect the API response.
+
+The exact endpoint path and input schema are defined in `main.py`.
+
+## 🧠 Machine Learning Workflow
+
+1. Exploratory Data Analysis (EDA).
+2. Data cleaning and missing value handling.
+3. Feature selection and feature engineering.
+4. Train-test split.
+5. Preprocessing pipeline construction.
+6. Model training using SGDRegressor.
+7. Model evaluation using R² score and other regression metrics.
+8. Saving the trained pipeline for inference.
+9. Integrating the model with FastAPI and Streamlit.
+10. Containerizing the application using Docker.
+
+## 📊 Model Evaluation
+
+The model was evaluated using regression metrics, including the R² score.
+
+- **Training R²:** 0.8090880378719172
+- **Testing R²:**  0.8370141769582473
+- **MAE:** 20563.17683849547
+
+Use the actual values from your final model evaluation rather than estimated results.
+
+## 🔮 Future Improvements
+
+- Deploy the application to a cloud platform.
+- Add automated tests for the API and preprocessing pipeline.
+- Improve model performance through further experimentation.
+- Set up a CI/CD workflow.
+- Add application screenshots and a live demo link.
+
+## 👩‍💻 Author
+
+**Ritika Chhoker**
+
+MCA Student | Aspiring AI/ML Engineer
+
+GitHub: [ritikachhoker](https://github.com/ritikachhoker)
+
+---
+
+If you found this project interesting, feel free to explore the repository and share feedback!
